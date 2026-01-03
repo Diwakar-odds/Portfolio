@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Portfolio Website
 
 A modern, responsive portfolio website showcasing my work as a Full Stack Developer.
@@ -69,3 +70,6 @@ Portfolio/
 ## License
 
 © 2026 Diwakar. All rights reserved.
+=======
+# Portfolio
+>>>>>>> d783e4679fe342b5701a08ea78a1ecfe1eb2e918
