@@ -228,6 +228,105 @@ body {
     box-shadow: 0 0 20px var(--glow-primary);
 }
 
+/* Mobile Menu Toggle Button - Hidden by default */
+.mobile-menu-toggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    font-size: var(--font-size-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-toggle:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 20px var(--glow-primary);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-md);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu.active {
+    transform: translateX(0);
+}
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.mobile-menu-close {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    font-size: var(--font-size-xl);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-close:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: rotate(90deg);
+}
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.mobile-nav-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--font-size-xl);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: all var(--transition-fast);
+    text-align: center;
+}
+
+.mobile-nav-link:hover {
+    background: var(--accent-gradient);
+    color: white;
+    border-color: transparent;
+    transform: translateX(10px);
+}
+
+
 /* ====================================
    HERO SECTION
    ==================================== */
@@ -357,8 +456,8 @@ body {
 
 .profile-badge {
     position: absolute;
-    bottom: 40px;
-    left: 50%;
+    bottom: -25px;
+    right: -5px;
     transform: translateX(-50%);
     padding: var(--spacing-xs) var(--spacing-md);
     background: var(--glass-bg);
@@ -1191,16 +1290,19 @@ body {
    RESPONSIVE DESIGN
    ==================================== */
 
+/* Tablet and below (1024px) */
 @media (max-width: 1024px) {
     .hero {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: var(--spacing-md);
     }
 
     .hero-content {
         text-align: center;
         padding-left: var(--spacing-md);
         grid-column: 1;
+        grid-row: 2;
         max-width: 100%;
     }
 
@@ -1211,7 +1313,8 @@ body {
     .profile-photo-container {
         grid-column: 1;
         grid-row: 1;
-        margin-top: var(--spacing-xl);
+        margin-top: var(--spacing-lg);
+        padding: var(--spacing-md);
     }
 
     .profile-photo-wrapper {
@@ -1236,16 +1339,30 @@ body {
         font-size: var(--font-size-2xl);
     }
 
-    .about-cards-row {
-        grid-template-columns: 1fr;
+    /* About Section - 2 columns on tablet */
+    .about-grid-2x2 {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
     }
 
-    .stats-row {
-        grid-template-columns: repeat(2, 1fr);
+    .journey-card {
+        grid-column: 1 / 3;
+        grid-row: 1;
     }
 
-    .tech-stack-row {
-        grid-template-columns: repeat(3, 1fr);
+    .education-card {
+        grid-column: 1 / 2;
+        grid-row: 2;
+    }
+
+    .passion-card {
+        grid-column: 2 / 3;
+        grid-row: 2;
+    }
+
+    .tech-stack-card {
+        grid-column: 1 / 3;
+        grid-row: 3;
     }
 
     .contact-grid {
@@ -1257,9 +1374,31 @@ body {
     }
 }
 
+/* Mobile landscape and below (768px) */
 @media (max-width: 768px) {
+
+    /* Show mobile menu button, hide desktop nav */
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
     .nav-links {
         display: none;
+    }
+
+    .btn-repo {
+        display: none;
+    }
+
+    .nav-container {
+        padding: 0 var(--spacing-sm);
+    }
+
+    /* Hero Section */
+    .hero {
+        padding-top: 100px;
+        min-height: auto;
+        padding-bottom: var(--spacing-lg);
     }
 
     .hero-title {
@@ -1268,6 +1407,7 @@ body {
 
     .hero-subtitle {
         font-size: var(--font-size-lg);
+        min-height: 40px;
     }
 
     .profile-photo-wrapper {
@@ -1280,48 +1420,315 @@ body {
         height: 200px;
     }
 
+    .profile-badge {
+        bottom: -15px;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+
     .floating-icon {
         font-size: 1.5rem;
     }
 
-    .about-cards-row {
+    /* About Section - Stack everything on mobile */
+    .about-grid-2x2 {
         grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: var(--spacing-sm);
     }
 
-    .stats-row {
-        grid-template-columns: repeat(2, 1fr);
+    .journey-card {
+        grid-column: 1;
+        grid-row: auto;
+        padding: var(--spacing-md);
     }
 
-    .tech-stack-row {
-        grid-template-columns: repeat(3, 1fr);
+    .education-card {
+        grid-column: 1;
+        grid-row: auto;
     }
 
+    .passion-card {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .tech-stack-card {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .journey-stats {
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+    }
+
+    .journey-stat {
+        flex: 1 1 45%;
+        min-width: 120px;
+    }
+
+    .stat-value {
+        font-size: var(--font-size-xl);
+    }
+
+    /* Projects */
     .projects-grid {
         grid-template-columns: 1fr;
     }
 
+    .project-filters {
+        gap: var(--spacing-xs);
+    }
+
+    .filter-btn {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+
+    /* Contact Section */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    /* Buttons */
     .hero-cta {
         flex-direction: column;
         align-items: stretch;
+        gap: var(--spacing-sm);
     }
 
     .btn {
         justify-content: center;
+        width: 100%;
+    }
+
+    .btn-icon {
+        width: 100%;
+    }
+
+    /* Footer */
+    .footer-social {
+        flex-wrap: wrap;
+    }
+
+    .scroll-indicator {
+        bottom: 1rem;
+        font-size: var(--font-size-xs);
     }
 }
 
+/* Mobile portrait (480px and below) */
 @media (max-width: 480px) {
     :root {
+        --spacing-sm: 0.75rem;
         --spacing-md: 1rem;
-        --spacing-lg: 2rem;
-        --spacing-xl: 3rem;
+        --spacing-lg: 1.5rem;
+        --spacing-xl: 2.5rem;
+        --font-size-3xl: 2rem;
+        --font-size-2xl: 1.5rem;
+    }
+
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+
+    /* Hero */
+    .hero {
+        padding-top: 80px;
     }
 
     .hero-title {
         font-size: var(--font-size-xl);
+        line-height: 1.3;
+    }
+
+    .highlight {
+        white-space: normal;
+    }
+
+    .hero-subtitle {
+        font-size: var(--font-size-base);
+    }
+
+    .profile-photo-wrapper {
+        width: 200px;
+        height: 200px;
+    }
+
+    .profile-photo {
+        width: 180px;
+        height: 180px;
+    }
+
+    .profile-badge {
+        bottom: -12px;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    /* Typography */
+    .section-title {
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .about-subtitle {
+        font-size: var(--font-size-base);
+    }
+
+    /* About Cards */
+    .journey-card h3,
+    .education-card h3,
+    .passion-card h3,
+    .tech-stack-card h3 {
+        font-size: var(--font-size-lg);
+    }
+
+    .journey-card,
+    .education-card,
+    .passion-card,
+    .tech-stack-card {
+        padding: var(--spacing-sm);
+    }
+
+    .journey-stats {
+        flex-direction: column;
+    }
+
+    .journey-stat {
+        flex: 1 1 100%;
+    }
+
+    .tech-badges {
+        gap: 0.4rem;
+    }
+
+    .tech-badge {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    /* Projects */
+    .project-title {
+        font-size: var(--font-size-lg);
+    }
+
+    .project-description {
+        font-size: var(--font-size-sm);
+    }
+
+    .project-image {
+        height: 180px;
+    }
+
+    /* Contact */
+    .info-card {
+        padding: var(--spacing-sm);
+    }
+
+    .contact-form {
+        padding: var(--spacing-sm);
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: var(--font-size-sm);
+    }
+
+    /* Mobile menu improvements for small screens */
+    .mobile-nav-link {
+        font-size: var(--font-size-lg);
+        padding: var(--spacing-sm);
+    }
+
+    .mobile-menu {
+        padding: var(--spacing-sm);
+    }
+}
+
+/* Very small mobile (375px and below) */
+@media (max-width: 375px) {
+    .hero-title {
+        font-size: 1.25rem;
+    }
+
+    .profile-photo-wrapper {
+        width: 180px;
+        height: 180px;
+    }
+
+    .profile-photo {
+        width: 160px;
+        height: 160px;
     }
 
     .section-title {
-        font-size: var(--font-size-xl);
+        font-size: 1.25rem;
+    }
+
+    .btn {
+        font-size: var(--font-size-sm);
+        padding: 0.6rem 1rem;
+    }
+}
+
+/* Landscape orientation optimization */
+@media (max-height: 600px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding: var(--spacing-lg) 0;
+    }
+
+    .profile-photo-wrapper {
+        width: 200px;
+        height: 200px;
+    }
+
+    .profile-photo {
+        width: 180px;
+        height: 180px;
+    }
+
+    .scroll-indicator {
+        display: none;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Ensure all interactive elements have adequate touch targets */
+    .btn,
+    .nav-link,
+    .filter-btn,
+    .project-link,
+    .info-link,
+    .social-link {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Remove hover effects on touch devices */
+    .project-card:hover {
+        transform: none;
+    }
+
+    .project-card:active {
+        transform: scale(0.98);
+    }
+
+    /* Better touch feedback */
+    .btn:active,
+    .filter-btn:active,
+    .mobile-nav-link:active {
+        transform: scale(0.95);
     }
 }

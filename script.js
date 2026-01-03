@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjectFiltering();
     initContactForm();
     initNavHighlight();
+    initMobileMenu();
     loadProjects();
 });
 
@@ -112,6 +113,61 @@ function initSmoothScroll() {
                 });
             }
         });
+    });
+}
+
+// ====================================
+// MOBILE MENU
+// ====================================
+
+function initMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    // Open mobile menu
+    mobileMenuToggle.addEventListener('click', () => {
+        mobileMenu.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    });
+
+    // Close mobile menu
+    mobileMenuClose.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = ''; // Re-enable scrolling
+    });
+
+    // Close menu when clicking on a link
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+
+            // Close the menu
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+
+            // Scroll to section
+            if (targetSection) {
+                const offsetTop = targetSection.offsetTop - 80;
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }, 300); // Wait for menu to close
+            }
+        });
+    });
+
+    // Close menu when clicking outside
+    mobileMenu.addEventListener('click', (e) => {
+        if (e.target === mobileMenu) {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     });
 }
 
