@@ -1173,20 +1173,6 @@ body {
         opacity: 0.3;
     }
 
-    /* Asymmetric Grid - Tablet */
-    .about-asymmetric-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-    }
-
-    .about-card-journey,
-    .about-card-education,
-    .about-card-passion,
-    .about-card-tech {
-        grid-column: 1;
-        grid-row: auto;
-    }
-
     .hero-title {
         font-size: var(--font-size-3xl);
     }
@@ -1204,7 +1190,23 @@ body {
     }
 }
 
+/* Tablet and Mobile - Stack asymmetric grid */
 @media (max-width: 768px) {
+
+    /* Asymmetric Grid - Mobile Only */
+    .about-asymmetric-grid {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: auto !important;
+    }
+
+    .about-card-journey,
+    .about-card-education,
+    .about-card-passion,
+    .about-card-tech {
+        grid-column: 1 !important;
+        grid-row: auto !important;
+    }
+
     .nav-links {
         display: none;
     }
