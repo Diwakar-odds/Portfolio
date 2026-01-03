@@ -234,13 +234,32 @@ body {
 
 .hero {
     min-height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 1fr var(--spacing-lg) 1fr;
     grid-template-columns: 1fr 1fr;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     position: relative;
     overflow: hidden;
     padding-top: 80px;
     gap: var(--spacing-lg);
+    grid-gap: var(--spacing-lg);
+}
+
+/* For browsers that support grid */
+@supports (display: grid) {
+    .hero {
+        display: grid;
+    }
 }
 
 .hero-background {
@@ -413,21 +432,27 @@ body {
 /* Scroll Indicator */
 .scroll-indicator {
     position: absolute;
-    bottom: var(--spacing-lg);
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: fit-content;
-    width: -moz-fit-content;
+    bottom: 2rem;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
-    gap: var(--spacing-xs);
+    gap: 0.5rem;
     color: var(--text-secondary);
     cursor: pointer;
     z-index: 10;
-    animation: bounce 2s ease-in-out infinite;
+    -webkit-animation: bounceScroll 2s ease-in-out infinite;
+    animation: bounceScroll 2s ease-in-out infinite;
 }
 
 .scroll-indicator i {
@@ -439,6 +464,7 @@ body {
     font-size: var(--font-size-xs);
     font-weight: 500;
     text-transform: lowercase;
+    margin: 0;
 }
 
 /* ====================================
@@ -1130,6 +1156,22 @@ body {
 
     50% {
         transform: translateY(-10px);
+    }
+}
+
+@keyframes bounceScroll {
+
+    0%,
+    100% {
+        -webkit-transform: translateX(-50%) translateY(0);
+        -ms-transform: translateX(-50%) translateY(0);
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        -webkit-transform: translateX(-50%) translateY(-10px);
+        -ms-transform: translateX(-50%) translateY(-10px);
+        transform: translateX(-50%) translateY(-10px);
     }
 }
 
