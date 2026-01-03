@@ -488,11 +488,18 @@ body {
 }
 
 /* Asymmetric Grid Layout */
-.about-asymmetric-grid {
+.about .about-asymmetric-grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
     gap: var(--spacing-md);
+    width: 100%;
+}
+
+/* Ensure grid items are positioned correctly */
+.about-asymmetric-grid>* {
+    min-width: 0;
+    /* Prevent grid blowout */
 }
 
 /* Base Card Styling */
@@ -537,8 +544,8 @@ body {
 
 /* MY JOURNEY CARD - Large, spans 2 rows */
 .about-card-journey {
-    grid-column: 1;
-    grid-row: 1 / 3;
+    grid-column: 1 !important;
+    grid-row: 1 / 3 !important;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -587,8 +594,8 @@ body {
 
 /* EDUCATION CARD - Top Right */
 .about-card-education {
-    grid-column: 2;
-    grid-row: 1;
+    grid-column: 2 !important;
+    grid-row: 1 !important;
 }
 
 .education-details {
@@ -616,8 +623,8 @@ body {
 
 /* PASSION CARD - Bottom Left */
 .about-card-passion {
-    grid-column: 1;
-    grid-row: 3;
+    grid-column: 1 !important;
+    grid-row: 3 !important;
 }
 
 .passion-badges {
@@ -658,8 +665,8 @@ body {
 
 /* TECH STACK CARD - Bottom Right */
 .about-card-tech {
-    grid-column: 2;
-    grid-row: 2 / 4;
+    grid-column: 2 !important;
+    grid-row: 2 / 4 !important;
 }
 
 .tech-badges {
