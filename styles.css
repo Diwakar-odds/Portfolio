@@ -502,6 +502,35 @@ body {
     /* Prevent grid blowout */
 }
 
+/* Desktop - Force asymmetric grid above 768px */
+@media (min-width: 769px) {
+    .about .about-asymmetric-grid {
+        display: grid !important;
+        grid-template-columns: 1.5fr 1fr !important;
+        grid-template-rows: auto auto auto !important;
+    }
+
+    .about-card-journey {
+        grid-column: 1 !important;
+        grid-row: 1 / 3 !important;
+    }
+
+    .about-card-education {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+    }
+
+    .about-card-passion {
+        grid-column: 1 !important;
+        grid-row: 3 !important;
+    }
+
+    .about-card-tech {
+        grid-column: 2 !important;
+        grid-row: 2 / 4 !important;
+    }
+}
+
 /* Base Card Styling */
 .about-card {
     padding: var(--spacing-md);
