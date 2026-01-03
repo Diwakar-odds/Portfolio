@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio website showcasing projects and skills">
+    <title>Portfolio | Full Stack Developer</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">Portfolio</a>
+            </div>
+
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <div class="nav-actions">
+                <a href="https://github.com" target="_blank" class="btn-repo">Visit Repo</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="grid-pattern"></div>
+            <div class="floating-icons">
+                <i class="fab fa-react floating-icon" style="top: 10%; left: 10%;"></i>
+                <i class="fab fa-node-js floating-icon" style="top: 10%; right: 10%;"></i>
+                <i class="fab fa-python floating-icon" style="bottom: 20%; left: 15%;"></i>
+                <i class="fab fa-js floating-icon" style="bottom: 15%; right: 15%;"></i>
+            </div>
+        </div>
+
+        <div class="profile-photo-container">
+            <div class="profile-photo-wrapper">
+                <div class="profile-photo-glow"></div>
+                <img src="https://via.placeholder.com/400/a855f7/ffffff?text=Your+Photo" alt="Profile Photo"
+                    class="profile-photo">
+                <div class="profile-badge">
+                    <i class="fas fa-circle"></i> Full-time student
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Hi, I'm <span class="highlight">Tirth Patel</span>
+            </h1>
+            <div class="hero-subtitle">
+                <span class="typing-text" id="typingText"></span>
+                <span class="cursor">|</span>
+            </div>
+            <div class="hero-cta">
+                <a href="https://github.com" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> GitHub Profile
+                </a>
+                <a href="#" target="_blank" class="btn btn-secondary">
+                    <i class="fas fa-file-download"></i> Resume
+                </a>
+                <a href="#" class="btn btn-icon">
+                    <i class="fas fa-code"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+
+            <div class="about-grid">
+                <div class="about-card reveal">
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Education</h3>
+                    <p>Pursuing Computer Science with a passion for creating innovative solutions and learning new
+                        technologies.</p>
+                </div>
+
+                <div class="about-card reveal">
+                    <div class="card-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Journey</h3>
+                    <p>Started coding 2+ years ago and have been building projects ever since. Constantly exploring new
+                        frameworks and tools.</p>
+                </div>
+
+                <div class="about-card reveal">
+                    <div class="card-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Passion</h3>
+                    <p>Love creating beautiful, functional web applications that solve real-world problems and enhance
+                        user experiences.</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card reveal">
+                    <div class="stat-number">2+</div>
+                    <div class="stat-label">Years Coding</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Projects Built</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Technologies</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Dedication</div>
+                </div>
+            </div>
+
+            <div class="tech-stack">
+                <h3 class="tech-stack-title">Tech Stack</h3>
+                <div class="tech-stack-grid">
+                    <div class="tech-item reveal">
+                        <i class="fab fa-html5"></i>
+                        <span>HTML5</span>
+                    </div>
+                    <div class="tech-item reveal">
+                        <i class="fab fa-css3-alt"></i>
+                        <span>CSS3</span>
+                    </div>
+                    <div class="tech-item reveal">
+                        <i class="fab fa-js"></i>
+                        <span>JavaScript</span>
+                    </div>
+                    <div class="tech-item reveal">
+                        <i class="fab fa-python"></i>
+                        <span>Python</span>
+                    </div>
+                    <div class="tech-item reveal">
+                        <i class="fab fa-java"></i>
+                        <span>Java</span>
+                    </div>
+                    <div class="tech-item reveal">
+                        <i class="fas fa-code"></i>
+                        <span>C/C++</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="webdev">Web Dev</button>
+                <button class="filter-btn" data-filter="automation">Automation</button>
+            </div>
+
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Projects will be dynamically loaded -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="info-card reveal">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email</h3>
+                        <p>contact@example.com</p>
+                        <a href="mailto:contact@example.com" class="info-link">Connect</a>
+                    </div>
+
+                    <div class="info-card reveal">
+                        <div class="info-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <h3>LinkedIn</h3>
+                        <p>Let's connect professionally</p>
+                        <a href="https://linkedin.com" target="_blank" class="info-link">Follow</a>
+                    </div>
+                </div>
+
+                <form class="contact-form reveal" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://github.com" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:contact@example.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" target="_blank" class="social-link">
+                    <i class="fas fa-link"></i>
+                </a>
+                <a href="#" target="_blank" class="social-link">
+                    <i class="fas fa-id-card"></i>
+                </a>
+            </div>
+
+            <div class="footer-quote">
+                <p>"Perfection isn't the goal. Precision is."</p>
+            </div>
+
+            <div class="footer-copyright">
+                <p>&copy; 2026 Tirth Patel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+
+</html>
