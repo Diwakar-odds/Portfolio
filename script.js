@@ -276,7 +276,7 @@ function loadProjects() {
             title: 'YourDaddy AI Assistant',
             category: 'automation',
             description: 'Voice-activated AI assistant with Google Gemini 2.0 & OpenAI GPT. Features multilingual support, system automation, and multimodal capabilities.',
-            image: 'https://via.placeholder.com/400x200/a855f7/ffffff?text=AI+Assistant',
+            image: './assets/images/yourdaddy-ai.jpg',
             featured: true,
             liveUrl: '#',
             githubUrl: 'https://github.com/Diwakar-odds/Ai_Assistant'
@@ -286,7 +286,7 @@ function loadProjects() {
             title: 'Brain Buddy',
             category: 'automation',
             description: 'AI-powered neuroplasticity trainer with brainwave training. Closed-loop neuro-cybernetic system combining neuroscience with continual learning AI.',
-            image: 'https://via.placeholder.com/400x200/3b82f6/ffffff?text=Brain+Buddy',
+            image: './assets/images/brain-buddy.jpg',
             featured: true,
             liveUrl: '#',
             githubUrl: 'https://github.com/Diwakar-odds/Brain_Buddy'
@@ -296,7 +296,7 @@ function loadProjects() {
             title: 'Smiley Food App',
             category: 'webdev',
             description: 'Full-stack food ordering platform with OTP authentication, cart management, admin dashboard, and real-time order tracking. Built with React and PostgreSQL.',
-            image: 'https://via.placeholder.com/400x200/a855f7/ffffff?text=Smiley+Food',
+            image: './assets/images/smiley-food.jpg',
             featured: true,
             liveUrl: '#',
             githubUrl: 'https://github.com/Diwakar-odds/Smiley'
@@ -306,7 +306,7 @@ function loadProjects() {
             title: 'PDF Editor',
             category: 'webdev',
             description: 'Full-featured PDF annotation tool with drawing, text annotations, and multi-page support. Built with React, Vite, and Tailwind CSS.',
-            image: 'https://via.placeholder.com/400x200/3b82f6/ffffff?text=PDF+Editor',
+            image: './assets/images/pdf-editor.jpg',
             featured: false,
             liveUrl: '#',
             githubUrl: 'https://github.com/Diwakar-odds/Pdf_editor'
@@ -316,7 +316,7 @@ function loadProjects() {
             title: 'Finance Track',
             category: 'webdev',
             description: 'Expense tracker with budget management, interactive charts, and user authentication. Full-stack app with React, Node.js, and MongoDB.',
-            image: 'https://via.placeholder.com/400x200/a855f7/ffffff?text=Finance+Track',
+            image: './assets/images/finance-track.jpg',
             featured: false,
             liveUrl: '#',
             githubUrl: 'https://github.com/Diwakar-odds/Finance_track'
@@ -326,7 +326,7 @@ function loadProjects() {
             title: 'Chatflow',
             category: 'webdev',
             description: 'Real-time chat application with modern UI and seamless messaging experience.',
-            image: 'https://via.placeholder.com/400x200/3b82f6/ffffff?text=Chatflow',
+            image: './assets/images/chatflow.jpg',
             featured: false,
             liveUrl: '#',
             githubUrl: 'https://github.com/Diwakar-odds/Chatflow'
@@ -336,32 +336,33 @@ function loadProjects() {
             title: 'Tune-FLow',
             category: 'webdev',
             description: 'Music streaming application with playlist management and seamless playback experience.',
-            image: 'https://via.placeholder.com/400x200/a855f7/ffffff?text=Tune+Flow',
+            image: './assets/images/tune-flow.jpg',
             featured: false,
             liveUrl: '#',
             githubUrl: 'https://github.com/Diwakar-odds/Tune-FLow'
         },
         {
             id: 8,
-            title: 'YOURDADDY AI',
+            title: 'Task Automation',
             category: 'automation',
-            description: 'Advanced AI assistant system with intelligent automation and voice control capabilities.',
-            image: 'https://via.placeholder.com/400x200/3b82f6/ffffff?text=YourDaddy+AI',
+            description: 'Advanced automation system with intelligent task scheduling and workflow management.',
+            image: './assets/images/task-automation.jpg',
             featured: false,
             liveUrl: '#',
-            githubUrl: 'https://github.com/Diwakar-odds/YOURDADDY_AI'
+            githubUrl: 'https://github.com/Diwakar-odds'
         },
         {
             id: 9,
             title: 'Portfolio Website',
             category: 'webdev',
             description: 'Modern, responsive portfolio with glassmorphism design, smooth animations, and dynamic project filtering.',
-            image: 'https://via.placeholder.com/400x200/a855f7/ffffff?text=Portfolio',
+            image: './assets/images/portfolio.jpg',
             featured: false,
             liveUrl: 'https://github.com/Diwakar-odds/Portfolio',
             githubUrl: 'https://github.com/Diwakar-odds/Portfolio'
         }
     ];
+
 
     const projectsGrid = document.getElementById('projectsGrid');
 
