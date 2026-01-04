@@ -1,0 +1,780 @@
+/* ====================================
+   ADVANCED ANIMATIONS & EFFECTS
+   ==================================== */
+
+/* ====================================
+   PAGE LOADER
+   ==================================== */
+
+.page-loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.page-loader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--glass-border);
+    border-top-color: var(--accent-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto var(--spacing-sm);
+}
+
+.loader-text {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ====================================
+   CUSTOM CURSOR
+   ==================================== */
+
+.custom-cursor,
+.cursor-dot {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+}
+
+.custom-cursor {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent-primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+    transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-gradient);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+
+.custom-cursor.hover {
+    width: 60px;
+    height: 60px;
+    border-color: var(--accent-secondary);
+    opacity: 0.8;
+}
+
+.cursor-dot.hover {
+    width: 12px;
+    height: 12px;
+}
+
+/* Hide default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+    * {
+        cursor: none !important;
+    }
+}
+
+/* Cursor Trail Particles */
+.cursor-particle {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    pointer-events: none;
+    animation: particleFade 0.8s ease-out forwards;
+    z-index: 9998;
+    box-shadow:
+        0 0 10px rgba(59, 130, 246, 0.8),
+        0 0 20px rgba(59, 130, 246, 0.5),
+        0 0 30px rgba(59, 130, 246, 0.3);
+}
+
+@keyframes particleFade {
+    0% {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0) translate(var(--tx), var(--ty));
+    }
+}
+
+/* ====================================
+   PARTICLE SYSTEM
+   ==================================== */
+
+.particle-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: particleDrift var(--duration, 20s) linear infinite;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes particleDrift {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.3;
+    }
+
+    90% {
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: translate(var(--tx), var(--ty));
+        opacity: 0;
+    }
+}
+
+/* ====================================
+   AMBIENT LIGHT ORBS
+   ==================================== */
+
+.ambient-orbs {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    animation: orbFloat 20s ease-in-out infinite;
+}
+
+.orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--accent-primary), transparent);
+    top: -200px;
+    right: -200px;
+    animation-duration: 25s;
+}
+
+.orb-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--accent-secondary), transparent);
+    bottom: -150px;
+    left: -150px;
+    animation-duration: 30s;
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, #f59e0b, transparent);
+    top: 50%;
+    left: 50%;
+    animation-duration: 35s;
+    animation-delay: -10s;
+}
+
+@keyframes orbFloat {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(50px, -50px) scale(1.1);
+    }
+
+    50% {
+        transform: translate(-30px, 30px) scale(0.9);
+    }
+
+    75% {
+        transform: translate(40px, 60px) scale(1.05);
+    }
+}
+
+/* ====================================
+   3D CARD TILT EFFECT
+   ==================================== */
+
+.tilt-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+}
+
+.tilt-3d:hover {
+    z-index: 10;
+}
+
+/* Add perspective to parent containers */
+.project-card,
+.about-card-compact,
+.journey-card,
+.education-card,
+.passion-card {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+/* ====================================
+   RIPPLE EFFECT
+   ==================================== */
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    animation: rippleAnim 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes rippleAnim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ====================================
+   SHIMMER / SHINE EFFECT
+   ==================================== */
+
+.shimmer-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        left: 100%;
+    }
+}
+
+/* ====================================
+   MAGNETIC BUTTON EFFECT
+   ==================================== */
+
+.magnetic {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform;
+}
+
+/* ====================================
+   DROP BOUNCE ANIMATION
+   ==================================== */
+
+@keyframes dropBounce {
+    0% {
+        transform: translateY(-500px) scale(0) rotate(-45deg);
+        opacity: 0;
+    }
+
+    60% {
+        transform: translateY(0px) scale(1.1) rotate(5deg);
+        opacity: 1;
+    }
+
+    80% {
+        transform: translateY(-20px) scale(0.95) rotate(-3deg);
+    }
+
+    100% {
+        transform: translateY(0px) scale(1) rotate(0deg);
+    }
+}
+
+.profile-photo-wrapper {
+    animation: dropBounce 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.5s both;
+}
+
+/* ====================================
+   STATS COUNTER ANIMATION
+   ==================================== */
+
+.stat-value,
+.stat-number {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.stat-value.counting,
+.stat-number.counting {
+    animation: countPulse 0.5s ease;
+}
+
+@keyframes countPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* ====================================
+   ENHANCED BUTTON EFFECTS
+   ==================================== */
+
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-icon,
+.filter-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:active,
+.btn-primary:active,
+.btn-secondary:active,
+.btn-icon:active,
+.filter-btn:active {
+    transform: scale(0.95);
+}
+
+/* ====================================
+   BADGE ANIMATIONS
+   ==================================== */
+
+.badge-pill,
+.tech-badge {
+    animation: badgeBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes badgeBounce {
+    0% {
+        transform: scale(0) rotate(-12deg);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.1) rotate(3deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* Stagger animation for multiple badges */
+.badge-pill:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.badge-pill:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.badge-pill:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.tech-badge:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.tech-badge:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.tech-badge:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.tech-badge:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.tech-badge:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.tech-badge:nth-child(6) {
+    animation-delay: 0.3s;
+}
+
+.tech-badge:nth-child(7) {
+    animation-delay: 0.35s;
+}
+
+.tech-badge:nth-child(8) {
+    animation-delay: 0.4s;
+}
+
+.tech-badge:nth-child(9) {
+    animation-delay: 0.45s;
+}
+
+.tech-badge:nth-child(10) {
+    animation-delay: 0.5s;
+}
+
+.tech-badge:nth-child(11) {
+    animation-delay: 0.55s;
+}
+
+.tech-badge:nth-child(12) {
+    animation-delay: 0.6s;
+}
+
+/* ====================================
+   ICON ROTATION ON HOVER
+   ==================================== */
+
+.btn i,
+.filter-btn i,
+.tech-badge i {
+    transition: transform 0.3s ease;
+}
+
+.btn:hover i,
+.filter-btn:hover i,
+.tech-badge:hover i {
+    transform: rotate(360deg);
+}
+
+/* ====================================
+   ENHANCED FORM ANIMATIONS
+   ==================================== */
+
+.form-group input:focus,
+.form-group textarea:focus {
+    animation: inputGlow 0.3s ease;
+}
+
+@keyframes inputGlow {
+    0% {
+        box-shadow: 0 0 0 rgba(168, 85, 247, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+}
+
+/* Shake animation for validation errors */
+.shake {
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97);
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translateX(-2px);
+    }
+
+    20%,
+    80% {
+        transform: translateX(4px);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translateX(-8px);
+    }
+
+    40%,
+    60% {
+        transform: translateX(8px);
+    }
+}
+
+/* ====================================
+   ENHANCED SCROLL REVEAL
+   ==================================== */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger effect for multiple reveals */
+.reveal:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.reveal:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.reveal:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.reveal:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+/* ====================================
+   PARALLAX LAYERS
+   ==================================== */
+
+.parallax {
+    will-change: transform;
+    transition: transform 0.1s ease-out;
+}
+
+/* ====================================
+   GLITCH EFFECT (Subtle, for headings)
+   ==================================== */
+
+.glitch {
+    animation: glitch 15s infinite;
+    animation-timing-function: steps(2, end);
+}
+
+@keyframes glitch {
+
+    0%,
+    98% {
+        transform: translate(0);
+        filter: hue-rotate(0deg);
+    }
+
+    98.5% {
+        transform: translate(-2px, 2px);
+        filter: hue-rotate(90deg);
+    }
+
+    99% {
+        transform: translate(2px, -2px);
+        filter: hue-rotate(180deg);
+    }
+
+    99.5% {
+        transform: translate(-2px, -2px);
+        filter: hue-rotate(270deg);
+    }
+}
+
+/* ====================================
+   HOLOGRAPHIC EFFECT
+   ==================================== */
+
+.holographic {
+    background: linear-gradient(45deg,
+            var(--accent-primary),
+            var(--accent-secondary),
+            #f59e0b,
+            var(--accent-primary));
+    background-size: 300% 300%;
+    animation: holographic 5s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+@keyframes holographic {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* ====================================
+   NAVBAR AUTO-HIDE
+   ==================================== */
+
+.navbar {
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.hidden {
+    transform: translateY(-100%);
+}
+
+.navbar.scrolled {
+    background: rgba(26, 26, 36, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ====================================
+   LOADING DOTS ANIMATION
+   ==================================== */
+
+.loading-dots {
+    display: inline-flex;
+    gap: 0.25rem;
+}
+
+.loading-dots span {
+    width: 6px;
+    height: 6px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    animation: dotBounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes dotBounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* ====================================
+   ENHANCED PROJECT CARD EFFECTS
+   ==================================== */
+
+.project-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.1);
+}
+
+/* ====================================
+   PROGRESS RING (for stats)
+   ==================================== */
+
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+/* ====================================
+   MOBILE RESPONSIVENESS FOR EFFECTS
+   ==================================== */
+
+@media (max-width: 768px) {
+
+    /* Hide cursor effects on mobile */
+    .custom-cursor,
+    .cursor-dot,
+    .cursor-particle {
+        display: none;
+    }
+
+    /* Simplify particles on mobile */
+    .particle:nth-child(n+20) {
+        display: none;
+    }
+
+    /* Reduce orb sizes */
+    .orb-1 {
+        width: 300px;
+        height: 300px;
+    }
+
+    .orb-2 {
+        width: 250px;
+        height: 250px;
+    }
+
+    .orb-3 {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* ====================================
+   ACCESSIBILITY - REDUCED MOTION
+   ==================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .custom-cursor,
+    .cursor-dot,
+    .particle,
+    .orb {
+        display: none;
+    }
+}
