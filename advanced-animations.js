@@ -24,13 +24,35 @@ document.addEventListener('DOMContentLoaded', () => {
 // ====================================
 
 function initPageLoader() {
+    // Generate floating stars
+    const starsContainer = document.querySelector('.loader-stars');
+    if (starsContainer) {
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+    }
+
+    // Minimum display time + smooth exit
+    const startTime = Date.now();
+    const minimumDisplayTime = 2000; // 2 seconds
+
     window.addEventListener('load', () => {
         const loader = document.querySelector('.page-loader');
         if (loader) {
+            const elapsed = Date.now() - startTime;
+            const remainingTime = Math.max(0, minimumDisplayTime - elapsed);
+
             setTimeout(() => {
                 loader.classList.add('fade-out');
-                setTimeout(() => loader.remove(), 500);
-            }, 1000);
+                setTimeout(() => {
+                    loader.remove();
+                }, 800); // Wait for fade-out animation
+            }, remainingTime);
         }
     });
 }

@@ -402,15 +402,46 @@ function createProjectCard(project) {
             <h3 class="project-title">${project.title}</h3>
             <p class="project-description">${project.description}</p>
             <div class="project-links">
-                <a href="${project.liveUrl}" class="project-link" target="_blank">
+                <a href="${project.liveUrl}" class="project-link" target="_blank" onclick="event.stopPropagation()">
                     <i class="fas fa-external-link-alt"></i> Live Demo
                 </a>
-                <a href="${project.githubUrl}" class="project-link" target="_blank">
+                <a href="${project.githubUrl}" class="project-link" target="_blank" onclick="event.stopPropagation()">
                     <i class="fab fa-github"></i> GitHub
                 </a>
             </div>
         </div>
     `;
+
+    // Add 3D tilt effect
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+    });
+
+    // Add click handler to open modal
+    card.addEventListener('click', (e) => {
+        // Don't open modal if clicking on links
+        if (e.target.closest('.project-link')) {
+            return;
+        }
+        openProjectModal(project);
+    });
+
+    // Add cursor pointer on hover
+    card.style.cursor = 'pointer';
 
     return card;
 }
@@ -540,3 +571,178 @@ const debouncedScroll = debounce(() => {
 }, 100);
 
 window.addEventListener('scroll', debouncedScroll);
+
+// ====================================
+// PROJECT DETAIL MODAL
+// ====================================
+
+// Project data with extended details
+const projectDetails = {
+    1: {
+        features: [
+            'Multi-language text and voice chat interface',
+            'Context-aware conversation memory',
+            'Real-time voice synthesis and recognition',
+            'System automation and task execution',
+            'Integration with various APIs and services'
+        ],
+        techStack: ['Python', 'FastAPI', 'OpenAI API', 'React', 'WebSocket', 'SQLite']
+    },
+    2: {
+        features: [
+            'EEG-based brain signal processing',
+            'Real-time neurofeedback visualization',
+            'Personalized meditation and focus training',
+            'Progress tracking and analytics',
+            'Gamified learning experience'
+        ],
+        techStack: ['Python', 'TensorFlow', 'React', 'Chart.js', 'WebSocket', 'MongoDB']
+    },
+    3: {
+        features: [
+            'OTP-based authentication system',
+            'Real-time cart management',
+            'Admin dashboard for order tracking',
+            'Payment gateway integration',
+            'Restaurant menu management'
+        ],
+        techStack: ['React', 'Node.js', 'PostgreSQL', 'Express', 'Twilio API', 'Stripe']
+    },
+    4: {
+        features: [
+            'PDF annotation and drawing tools',
+            'Multi-page document support',
+            'Text and shape annotations',
+            'Export and save functionality',
+            'Responsive design for all devices'
+        ],
+        techStack: ['React', 'Vite', 'PDF.js', 'Tailwind CSS', 'Fabric.js']
+    },
+    5: {
+        features: [
+            'Budget tracking and management',
+            'Interactive expense charts',
+            'Category-based expense organization',
+            'Monthly/yearly financial reports',
+            'User authentication and data security'
+        ],
+        techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'Chart.js', 'JWT']
+    },
+    6: {
+        features: [
+            'Real-time messaging with WebSocket',
+            'User authentication and profiles',
+            'Message read receipts',
+            'Typing indicators',
+            'Modern and responsive UI'
+        ],
+        techStack: ['React', 'Node.js', 'Socket.io', 'MongoDB', 'Express', 'JWT']
+    },
+    7: {
+        features: [
+            'Audio streaming and playback',
+            'Playlist creation and management',
+            'Search and filter functionality',
+            'User favorites and history',
+            'Responsive music player interface'
+        ],
+        techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'Audio API']
+    },
+    8: {
+        features: [
+            'Voice command recognition',
+            'Intelligent task automation',
+            'System control and monitoring',
+            'Natural language processing',
+            'Multi-platform support'
+        ],
+        techStack: ['Python', 'Speech Recognition', 'NLP', 'Automation', 'TensorFlow']
+    },
+    9: {
+        features: [
+            'Modern glassmorphism design',
+            'Smooth scroll animations',
+            'Dynamic project filtering',
+            'Responsive across all devices',
+            '3D card tilt effects'
+        ],
+        techStack: ['HTML5', 'CSS3', 'JavaScript', 'Font Awesome', 'Vanilla JS']
+    }
+};
+
+function openProjectModal(project) {
+    const modal = document.getElementById('projectModal');
+    const body = document.body;
+    
+    // Populate modal content
+    document.getElementById('modalTitle').textContent = project.title;
+    document.getElementById('modalCategory').textContent = project.category;
+    document.getElementById('modalDescription').textContent = project.description;
+    document.getElementById('modalImage').src = project.image;
+    document.getElementById('modalImage').alt = project.title;
+    
+    // Featured badge
+    const featuredBadge = document.getElementById('modalFeatured');
+    featuredBadge.style.display = project.featured ? 'block' : 'none';
+    
+    // Tech stack
+    const techStackContainer = document.getElementById('modalTechStack');
+    const details = projectDetails[project.id] || { techStack: [], features: [] };
+    
+    techStackContainer.innerHTML = details.techStack.map(tech => 
+        `<span class="modal-tech-badge">${tech}</span>`
+    ).join('');
+    
+    // Features
+    const featuresContainer = document.getElementById('modalFeatures');
+    featuresContainer.innerHTML = details.features.map(feature => 
+        `<li>${feature}</li>`
+    ).join('');
+    
+    // Links
+    document.getElementById('modalLiveLink').href = project.liveUrl;
+    document.getElementById('modalGithubLink').href = project.githubUrl;
+    
+    // Show modal
+    modal.classList.add('active');
+    body.classList.add('modal-open');
+    
+    // ESC key handler
+    document.addEventListener('keydown', handleEscapeKey);
+}
+
+function closeProjectModal() {
+    const modal = document.getElementById('projectModal');
+    const body = document.body;
+    
+    modal.classList.remove('active');
+    body.classList.remove('modal-open');
+    
+    // Remove ESC key handler
+    document.removeEventListener('keydown', handleEscapeKey);
+}
+
+function handleEscapeKey(e) {
+    if (e.key === 'Escape') {
+        closeProjectModal();
+    }
+}
+
+// Make functions globally accessible
+window.openProjectModal = openProjectModal;
+window.closeProjectModal = closeProjectModal;
+
+console.log('í³¦ Project modal system loaded!');
+
+// Add click handler to modal backdrop (alternative method)
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('projectModal');
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            // Close if clicking directly on the modal container (backdrop)
+            if (e.target === modal) {
+                closeProjectModal();
+            }
+        });
+    }
+});
