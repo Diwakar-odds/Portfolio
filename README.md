@@ -431,7 +431,7 @@ Update your personal details in `index.html`:
 📧 Email: [bdiwakar1947@gmail.com](mailto:bdiwakar1947@gmail.com)  
 💼 LinkedIn: [Diwakar Chaurasia](https://www.linkedin.com/in/diwakar-chaurasia2530)  
 🐙 GitHub: [@Diwakar-odds](https://github.com/Diwakar-odds)  
-🌐 Portfolio: [diwakarr-portfolio.netlify.app](https://diwakar-portfolio.netlify.app/)
+🌐 Portfolio: [diwakarr-portfolio.netlify.app](https://diwakarr-portfolio.netlify.app/)
 
 #
 
