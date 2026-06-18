@@ -360,37 +360,83 @@ function loadProjects() {
             featured: false,
             liveUrl: 'https://github.com/Diwakar-odds/Portfolio',
             githubUrl: 'https://github.com/Diwakar-odds/Portfolio'
+        },
+        {
+            id: 10,
+            title: 'AI Job Hunter',
+            category: 'automation',
+            description: 'An AI-powered application designed to streamline the job hunting process.',
+            image: './assets/images/ai-job-hunter.jpg',
+            featured: false,
+            liveUrl: '#',
+            githubUrl: 'https://github.com/Diwakar-odds/Ai_Job_Hunter'
+        },
+        {
+            id: 11,
+            title: 'Etherdesk',
+            category: 'webdev',
+            description: 'Your desktop, accessible through the ether.',
+            image: './assets/images/etherdesk.jpg',
+            featured: false,
+            liveUrl: '#',
+            githubUrl: 'https://github.com/Diwakar-odds/Etherdesk'
+        },
+        {
+            id: 12,
+            title: 'Tea Spill',
+            category: 'webdev',
+            description: 'Anonymous campus gossip platform for Indian college students',
+            image: './assets/images/tea-spill.jpg',
+            featured: false,
+            liveUrl: '#',
+            githubUrl: 'https://github.com/Diwakar-odds/Tea_Spill'
         }
     ];
 
-
     const projectsGrid = document.getElementById('projectsGrid');
+    const items = [];
 
-    projects.forEach(project => {
+    projects.forEach((project, index) => {
         const projectCard = createProjectCard(project);
         projectsGrid.appendChild(projectCard);
+        items.push(projectCard);
     });
 
-    // Re-initialize scroll reveal for new elements
-    const newRevealElements = projectsGrid.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
+    // Position in circle and rotate
+    const total = items.length;
+    items.forEach((item, index) => {
+        const angle = (index / total) * 360; // in degrees
+        item.dataset.angle = angle;
+    });
+
+    let currentRotation = 0;
+    const rotationSpeed = 0.05; // Adjust as needed
+    let isHovering = false;
+
+    // Optional: Pause rotation on hover
+    projectsGrid.addEventListener('mouseenter', () => isHovering = true);
+    projectsGrid.addEventListener('mouseleave', () => isHovering = false);
+
+    function rotateBowl() {
+        if (!document.body.classList.contains('modal-open') && !isHovering) {
+            currentRotation = (currentRotation + rotationSpeed) % 360;
+        }
+        
+        items.forEach((item) => {
+            const baseAngle = parseFloat(item.dataset.angle);
+            let totalAngle = baseAngle + currentRotation;
+            item.style.transform = `translate(-50%, -50%) rotate(${totalAngle}deg) translate(var(--bowl-radius, 42vw)) rotate(-${totalAngle}deg)`;
         });
-    }, {
-        threshold: 0.1
-    });
-
-    newRevealElements.forEach(element => {
-        revealObserver.observe(element);
-    });
+        
+        requestAnimationFrame(rotateBowl);
+    }
+    
+    rotateBowl();
 }
 
 function createProjectCard(project) {
     const card = document.createElement('div');
-    card.className = 'project-card reveal';
+    card.className = 'project-circle-item';
     card.setAttribute('data-category', project.category);
 
     card.innerHTML = `
@@ -398,50 +444,12 @@ function createProjectCard(project) {
             <img src="${project.image}" alt="${project.title}">
             ${project.featured ? '<div class="featured-badge">Featured</div>' : ''}
         </div>
-        <div class="project-content">
-            <h3 class="project-title">${project.title}</h3>
-            <p class="project-description">${project.description}</p>
-            <div class="project-links">
-                <a href="${project.liveUrl}" class="project-link" target="_blank" onclick="event.stopPropagation()">
-                    <i class="fas fa-external-link-alt"></i> Live Demo
-                </a>
-                <a href="${project.githubUrl}" class="project-link" target="_blank" onclick="event.stopPropagation()">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-            </div>
-        </div>
+        <div class="project-circle-title">${project.title}</div>
     `;
 
-    // Add 3D tilt effect
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-    });
-
-    // Add click handler to open modal
     card.addEventListener('click', (e) => {
-        // Don't open modal if clicking on links
-        if (e.target.closest('.project-link')) {
-            return;
-        }
         openProjectModal(project);
     });
-
-    // Add cursor pointer on hover
-    card.style.cursor = 'pointer';
 
     return card;
 }
@@ -453,28 +461,29 @@ function createProjectCard(project) {
 function initContactForm() {
     const form = document.getElementById('contactForm');
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-        // Get form data
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            subject: document.getElementById('subject').value,
-            message: document.getElementById('message').value
-        };
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
 
-        // Validate
-        if (!validateForm(formData)) {
-            return;
-        }
+            // Validate
+            if (!validateForm(formData)) {
+                return;
+            }
 
-        // Simulate form submission
-        const submitBtn = form.querySelector('.btn-submit');
-        const originalText = submitBtn.innerHTML;
+            // Simulate form submission
+            const submitBtn = form.querySelector('.btn-submit');
+            const originalText = submitBtn.innerHTML;
 
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
 
         // Simulate API call
         setTimeout(() => {
@@ -732,7 +741,7 @@ function handleEscapeKey(e) {
 window.openProjectModal = openProjectModal;
 window.closeProjectModal = closeProjectModal;
 
-console.log('í³¦ Project modal system loaded!');
+console.log('ï¿½ï¿½ï¿½ Project modal system loaded!');
 
 // Add click handler to modal backdrop (alternative method)
 document.addEventListener('DOMContentLoaded', () => {

@@ -231,17 +231,15 @@
 
     <!-- Projects Section -->
     <section class="projects" id="projects">
-        <div class="container">
-            <h2 class="section-title">My Projects</h2>
-
-            <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="webdev">Web Dev</button>
-                <button class="filter-btn" data-filter="automation">Automation</button>
+        <div class="food-bowl-container">
+            <!-- Top Semi-Circle -->
+            <div class="top-semicircle">
+                <h2 class="section-title">Projects</h2>
             </div>
-
-            <div class="projects-grid" id="projectsGrid">
-                <!-- Projects will be dynamically loaded -->
+            
+            <!-- Rotating Projects Wrapper -->
+            <div class="rotating-wrapper" id="projectsGrid">
+                <!-- Projects will be dynamically loaded as circles -->
             </div>
         </div>
     </section>
@@ -348,50 +346,43 @@
     <!-- Project Detail Modal -->
     <div class="project-modal" id="projectModal">
         <div class="modal-backdrop" onclick="closeProjectModal()"></div>
-        <div class="modal-content">
+        
+        <!-- Left Semicircle Content -->
+        <div class="modal-left-semicircle">
             <button class="modal-close" onclick="closeProjectModal()" aria-label="Close modal">
                 <i class="fas fa-times"></i>
             </button>
-
-            <div class="modal-body">
+            <div class="modal-content-inner">
                 <div class="modal-header">
                     <h2 class="modal-title" id="modalTitle"></h2>
                     <span class="modal-category" id="modalCategory"></span>
                 </div>
-
-                <div class="modal-main">
-                    <div class="modal-image-section">
-                        <img id="modalImage" src="" alt="Project Screenshot" class="modal-project-image">
-                        <div class="modal-featured-badge" id="modalFeatured" style="display: none;">Featured</div>
-                    </div>
-
-                    <div class="modal-details-section">
-                        <div class="modal-description">
-                            <h3><i class="fas fa-info-circle"></i> Description</h3>
-                            <p id="modalDescription"></p>
-                        </div>
-
-                        <div class="modal-tech-stack">
-                            <h3><i class="fas fa-code"></i> Tech Stack</h3>
-                            <div class="modal-tech-list" id="modalTechStack"></div>
-                        </div>
-
-                        <div class="modal-features">
-                            <h3><i class="fas fa-star"></i> Key Features</h3>
-                            <ul class="modal-features-list" id="modalFeatures"></ul>
-                        </div>
-
-                        <div class="modal-actions">
-                            <a id="modalLiveLink" href="#" target="_blank" class="modal-btn modal-btn-primary">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a id="modalGithubLink" href="#" target="_blank" class="modal-btn modal-btn-secondary">
-                                <i class="fab fa-github"></i> View on GitHub
-                            </a>
-                        </div>
-                    </div>
+                <div class="modal-description">
+                    <p id="modalDescription"></p>
+                </div>
+                <div class="modal-tech-stack">
+                    <h3>Tech Stack</h3>
+                    <div class="modal-tech-list" id="modalTechStack"></div>
+                </div>
+                <div class="modal-features">
+                    <h3>Key Features</h3>
+                    <ul class="modal-features-list" id="modalFeatures"></ul>
+                </div>
+                <div class="modal-actions">
+                    <a id="modalLiveLink" href="#" target="_blank" class="modal-btn modal-btn-primary">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                    <a id="modalGithubLink" href="#" target="_blank" class="modal-btn modal-btn-secondary">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
                 </div>
             </div>
+        </div>
+
+        <!-- Right Side Preview Image -->
+        <div class="modal-right-preview">
+            <img id="modalImage" src="" alt="Project Screenshot" class="modal-project-image">
+            <div class="modal-featured-badge" id="modalFeatured" style="display: none;">Featured</div>
         </div>
     </div>
 

@@ -873,140 +873,175 @@ body {
 }
 
 /* ====================================
-   PROJECTS SECTION
+   PROJECTS SECTION (FOOD BOWL LAYOUT)
    ==================================== */
 
 .projects {
-    padding: var(--spacing-xl) 0;
-}
-
-.project-filters {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-lg);
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    padding: var(--spacing-xs) var(--spacing-md);
-    background: var(--glass-bg);
-    border: 2px solid var(--glass-border);
-    border-radius: var(--radius-full);
-    color: var(--text-primary);
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-    background: var(--accent-gradient);
-    border-color: transparent;
-    color: white;
-    box-shadow: 0 4px 15px var(--glow-primary);
-}
-
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: var(--spacing-md);
-}
-
-.project-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: all var(--transition-base);
-    opacity: 1;
-    transform: scale(1);
-}
-
-.project-card.hidden {
-    display: none;
-}
-
-.project-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--accent-primary);
-    box-shadow: 0 12px 40px var(--glow-primary);
-}
-
-.project-image {
     position: relative;
     width: 100%;
-    height: 200px;
+    min-height: 100vh;
+    padding: 0;
     overflow: hidden;
-    background: var(--bg-tertiary);
+    background: var(--bg-primary);
 }
 
-.project-image img {
+.food-bowl-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    --bowl-radius: 42vw;
+}
+
+.top-semicircle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    height: 40vw; /* Height is half the width for a perfect semicircle */
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom-left-radius: 40vw;
+    border-bottom-right-radius: 40vw;
+    border: 1px solid var(--glass-border);
+    border-top: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3), inset 0 -5px 20px rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.top-semicircle .section-title {
+    margin: 0;
+    font-size: 5vw;
+    padding-bottom: 5vw; /* Push title up slightly */
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.rotating-wrapper {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 80vw;
+    height: 80vw;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    pointer-events: none; /* Let clicks pass through to background */
+    z-index: 5;
+}
+
+.project-circle-item {
+    position: absolute;
+    width: 12vw;
+    height: 12vw;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    border: 3px solid var(--glass-border);
+    pointer-events: auto;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    top: 50%;
+    left: 50%;
+    /* Transformation for positioning handled in JS */
+}
+
+.project-circle-item:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 30px var(--glow-primary);
+    z-index: 20;
+}
+
+.project-circle-item .project-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.project-circle-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--transition-slow);
+    transition: transform 0.5s ease;
 }
 
-.project-card:hover .project-image img {
-    transform: scale(1.1);
+.project-circle-item:hover img {
+    transform: scale(1.15);
 }
 
-.featured-badge {
+.project-circle-title {
     position: absolute;
-    top: var(--spacing-sm);
-    right: var(--spacing-sm);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background: var(--accent-gradient);
-    color: white;
-    font-size: var(--font-size-xs);
-    font-weight: 700;
-    border-radius: var(--radius-sm);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.project-content {
-    padding: var(--spacing-md);
-}
-
-.project-title {
-    font-size: var(--font-size-xl);
-    font-weight: 700;
-    margin-bottom: var(--spacing-xs);
-}
-
-.project-description {
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-md);
-    line-height: 1.6;
-}
-
-.project-links {
-    display: flex;
-    gap: var(--spacing-sm);
-}
-
-.project-link {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-sm);
-    color: var(--text-primary);
-    text-decoration: none;
+    bottom: -40px;
+    white-space: nowrap;
     font-size: var(--font-size-sm);
     font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all var(--transition-fast);
+    color: var(--text-primary);
+    background: var(--glass-bg);
+    padding: 5px 15px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--glass-border);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
 }
 
-.project-link:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    box-shadow: 0 0 15px var(--glow-primary);
+.project-circle-item:hover .project-circle-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Featured badge adapted for circle */
+.project-circle-item .featured-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    padding: 3px 8px;
+    background: var(--accent-gradient);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    z-index: 2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .food-bowl-container {
+        --bowl-radius: 54vw;
+    }
+    .top-semicircle {
+        width: 100vw;
+        height: 50vw;
+        border-bottom-left-radius: 50vw;
+        border-bottom-right-radius: 50vw;
+    }
+    .rotating-wrapper {
+        width: 100vw;
+        height: 100vw;
+    }
+    .project-circle-item {
+        width: 20vw;
+        height: 20vw;
+    }
+    .top-semicircle .section-title {
+        font-size: 8vw;
+    }
 }
 
 /* ====================================
