@@ -395,63 +395,114 @@ function loadProjects() {
 
     const projectsGrid = document.getElementById('projectsGrid');
     const items = [];
+    let currentIndex = 0;
 
     projects.forEach((project, index) => {
-        const projectCard = createProjectCard(project);
+        const projectCard = createCoverflowCard(project, index);
         projectsGrid.appendChild(projectCard);
         items.push(projectCard);
     });
 
-    // Position in circle and rotate
-    const total = items.length;
-    items.forEach((item, index) => {
-        const angle = (index / total) * 360; // in degrees
-        item.dataset.angle = angle;
-    });
-
-    let currentRotation = 0;
-    const rotationSpeed = 0.05; // Adjust as needed
-    let isHovering = false;
-
-    // Optional: Pause rotation on hover
-    projectsGrid.addEventListener('mouseenter', () => isHovering = true);
-    projectsGrid.addEventListener('mouseleave', () => isHovering = false);
-
-    function rotateBowl() {
-        if (!document.body.classList.contains('modal-open') && !isHovering) {
-            currentRotation = (currentRotation + rotationSpeed) % 360;
-        }
-        
-        items.forEach((item) => {
-            const baseAngle = parseFloat(item.dataset.angle);
-            let totalAngle = baseAngle + currentRotation;
-            item.style.transform = `translate(-50%, -50%) rotate(${totalAngle}deg) translate(var(--bowl-radius, 42vw)) rotate(-${totalAngle}deg)`;
+    function updateCoverflow() {
+        items.forEach((item, index) => {
+            item.classList.remove('active', 'prev-1', 'next-1', 'prev-2', 'next-2', 'hidden');
+            
+            if (index === currentIndex) {
+                item.classList.add('active');
+            } else if (index === currentIndex - 1 || (currentIndex === 0 && index === items.length - 1)) {
+                item.classList.add('prev-1');
+            } else if (index === currentIndex + 1 || (currentIndex === items.length - 1 && index === 0)) {
+                item.classList.add('next-1');
+            } else if (index === currentIndex - 2 || (currentIndex === 0 && index === items.length - 2) || (currentIndex === 1 && index === items.length - 1)) {
+                item.classList.add('prev-2');
+            } else if (index === currentIndex + 2 || (currentIndex === items.length - 1 && index === 1) || (currentIndex === items.length - 2 && index === 0)) {
+                item.classList.add('next-2');
+            } else {
+                item.classList.add('hidden');
+            }
         });
-        
-        requestAnimationFrame(rotateBowl);
     }
-    
-    rotateBowl();
-}
 
-function createProjectCard(project) {
-    const card = document.createElement('div');
-    card.className = 'project-circle-item';
-    card.setAttribute('data-category', project.category);
+    // Initialize
+    updateCoverflow();
 
-    card.innerHTML = `
-        <div class="project-image">
+    // Navigation Buttons
+    const prevBtn = document.getElementById('coverflowPrev');
+    const nextBtn = document.getElementById('coverflowNext');
+
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : items.length - 1;
+            updateCoverflow();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
+            updateCoverflow();
+        });
+    }
+
+    // Swipe/Drag Logic
+    let startX = 0;
+    let isDragging = false;
+    const coverflowContainer = document.querySelector('.coverflow-container');
+
+    if (coverflowContainer) {
+        const handleDragStart = (e) => {
+            isDragging = true;
+            startX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+        };
+
+        const handleDragEnd = (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const endX = e.type.includes('mouse') ? e.pageX : e.changedTouches[0].pageX;
+            const diffX = startX - endX;
+
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
+                } else {
+                    currentIndex = (currentIndex > 0) ? currentIndex - 1 : items.length - 1;
+                }
+                updateCoverflow();
+            }
+        };
+
+        coverflowContainer.addEventListener('mousedown', handleDragStart);
+        window.addEventListener('mouseup', handleDragEnd);
+        coverflowContainer.addEventListener('touchstart', handleDragStart, { passive: true });
+        window.addEventListener('touchend', handleDragEnd);
+    }
+
+    // Make createCoverflowCard scoped inside or pass dependencies
+    function createCoverflowCard(project, index) {
+        const card = document.createElement('div');
+        card.className = 'coverflow-item';
+        card.setAttribute('data-index', index);
+        card.setAttribute('data-category', project.category);
+
+        card.innerHTML = `
             <img src="${project.image}" alt="${project.title}">
             ${project.featured ? '<div class="featured-badge">Featured</div>' : ''}
-        </div>
-        <div class="project-circle-title">${project.title}</div>
-    `;
+            <div class="coverflow-item-details">
+                <div class="coverflow-item-title">${project.title}</div>
+                <div class="coverflow-item-category">${project.category.replace('-', ' ')}</div>
+            </div>
+        `;
 
-    card.addEventListener('click', (e) => {
-        openProjectModal(project);
-    });
+        card.addEventListener('click', () => {
+            if (index === currentIndex) {
+                openProjectModal(project);
+            } else {
+                currentIndex = index;
+                updateCoverflow();
+            }
+        });
 
-    return card;
+        return card;
+    }
 }
 
 // ====================================
@@ -485,17 +536,18 @@ function initContactForm() {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
 
-        // Simulate API call
-        setTimeout(() => {
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-
+            // Simulate API call
             setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                form.reset();
-            }, 2000);
-        }, 1500);
-    });
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    form.reset();
+                }, 2000);
+            }, 1500);
+        });
+    }
 }
 
 function validateForm(data) {

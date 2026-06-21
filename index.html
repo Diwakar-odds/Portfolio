@@ -231,15 +231,21 @@
 
     <!-- Projects Section -->
     <section class="projects" id="projects">
-        <div class="food-bowl-container">
-            <!-- Top Semi-Circle -->
-            <div class="top-semicircle">
-                <h2 class="section-title">Projects</h2>
-            </div>
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
             
-            <!-- Rotating Projects Wrapper -->
-            <div class="rotating-wrapper" id="projectsGrid">
-                <!-- Projects will be dynamically loaded as circles -->
+            <div class="coverflow-container">
+                <button class="coverflow-nav prev" id="coverflowPrev" aria-label="Previous project">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="coverflow-carousel" id="projectsGrid">
+                    <!-- Projects will be dynamically loaded here -->
+                </div>
+                
+                <button class="coverflow-nav next" id="coverflowNext" aria-label="Next project">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </section>
@@ -347,12 +353,17 @@
     <div class="project-modal" id="projectModal">
         <div class="modal-backdrop" onclick="closeProjectModal()"></div>
         
-        <!-- Left Semicircle Content -->
-        <div class="modal-left-semicircle">
+        <div class="modal-card">
             <button class="modal-close" onclick="closeProjectModal()" aria-label="Close modal">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="modal-content-inner">
+            
+            <div class="modal-card-left">
+                <img id="modalImage" src="" alt="Project Screenshot" class="modal-project-image">
+                <div class="modal-featured-badge" id="modalFeatured" style="display: none;">Featured</div>
+            </div>
+            
+            <div class="modal-card-right">
                 <div class="modal-header">
                     <h2 class="modal-title" id="modalTitle"></h2>
                     <span class="modal-category" id="modalCategory"></span>
@@ -377,12 +388,6 @@
                     </a>
                 </div>
             </div>
-        </div>
-
-        <!-- Right Side Preview Image -->
-        <div class="modal-right-preview">
-            <img id="modalImage" src="" alt="Project Screenshot" class="modal-project-image">
-            <div class="modal-featured-badge" id="modalFeatured" style="display: none;">Featured</div>
         </div>
     </div>
 
